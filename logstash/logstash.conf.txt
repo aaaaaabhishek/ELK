@@ -1,0 +1,42 @@
+input {
+  beats {
+    port => 5044  # Port on which Logstash listens for Beats
+  }
+}
+
+filter {
+  # You can add filters to process logs differently based on their source or type.
+  
+  # Example: Process logs from Filebeat
+  if [fields][log_type] == "filebeat" {
+    # Add Filebeat-specific processing here (e.g., grok filters, date parsing)
+    # Example: Parse log messages with a grok filter
+    grok {
+      match => { "message" => "%{COMBINEDAPACHELOG}" }
+      remove_field => ["message"]  # Remove original message if parsed
+    }
+  }
+
+  # Example: Process metrics from Metricbeat
+  if [fields][log_type] == "metricbeat" {
+    # Add Metricbeat-specific processing here
+    # For example, you could enrich the metrics data or transform it
+    mutate {
+      add_field => { "service" => "metric_service" }
+    }
+  }
+
+  # More filters can be added for other Beats as needed
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]  # Elasticsearch address
+    index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"  # Dynamic index name based on Beat
+  }
+
+  # Optional: Add a stdout output for debugging
+  stdout {
+    codec => rubydebug  # Print logs to the console for debugging
+  }
+}

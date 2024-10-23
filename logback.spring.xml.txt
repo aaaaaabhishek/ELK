@@ -1,0 +1,31 @@
+xml version=1.0 encoding=UTF-8
+configuration
+
+    !-- Define console appender for logs --
+    appender name=CONSOLE class=ch.qos.logback.core.ConsoleAppender
+        encoder
+            pattern%d{yyyy-MM-dd HHmmss} [%thread] %-5level %logger{36} - %msg%npattern
+        encoder
+    appender
+
+    !-- Define file appender to store logs in a file --
+    appender name=FILE class=ch.qos.logback.core.FileAppender
+        filelogsmyapp.logfile
+        encoder
+            pattern%d{yyyy-MM-dd HHmmss} [%thread] %-5level %logger{36} - %msg%npattern
+        encoder
+    appender
+
+    !-- Set log level for a specific package (e.g., your application's code) --
+    logger name=com.example.myapp level=DEBUG
+
+    !-- Set log level for a third-party package (e.g., Hibernate) --
+    logger name=org.hibernate level=ERROR
+
+    !-- Global log level (root level), applies to all packages unless overridden --
+    root level=INFO
+        appender-ref ref=CONSOLE
+        appender-ref ref=FILE
+    root
+
+configuration
