@@ -1,0 +1,8 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /path/to/spring-boot-app/logs/*.log   # Path to Spring Boot log files
+
+output.elasticsearch:
+  hosts: ["localhost:9200"]                   # Send data to Elasticsearch

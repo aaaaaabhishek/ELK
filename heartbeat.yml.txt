@@ -1,0 +1,9 @@
+heartbeat.monitors:
+  - type: http
+    id: spring-boot-healthcheck
+    name: Spring Boot Health Check
+    urls: ["http://localhost:8080/actuator/health"]  # Spring Boot actuator endpoint
+    schedule: "@every 10s"                    # Check every 10 seconds
+
+output.elasticsearch:
+  hosts: ["localhost:9200"]                  # Send availability data to Elasticsearch

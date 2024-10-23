@@ -1,0 +1,12 @@
+metricbeat.modules:
+  - module: system
+    metricsets:
+      - cpu
+      - memory
+      - network
+    enabled: true
+    period: 10s                               # Collect every 10 seconds
+    hosts: ["localhost"]                      # Monitoring the local system
+
+output.elasticsearch:
+  hosts: ["localhost:9200"]                   # Send metrics to Elasticsearch

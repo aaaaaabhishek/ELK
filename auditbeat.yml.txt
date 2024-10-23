@@ -1,0 +1,8 @@
+auditbeat.modules:
+  - module: file_integrity
+    paths:
+      - /etc                                 # Monitor changes in these directories
+      - /usr/bin
+
+output.elasticsearch:
+  hosts: ["localhost:9200"]                  # Send audit data to Elasticsearch

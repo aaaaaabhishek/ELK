@@ -1,0 +1,9 @@
+packetbeat.interfaces:
+  device: any                                 # Capture traffic from any network interface
+
+packetbeat.protocols:
+  - type: http
+    ports: [80, 443, 8080]                    # Monitor HTTP traffic on these ports
+
+output.elasticsearch:
+  hosts: ["localhost:9200"]                   # Send network data to Elasticsearch
